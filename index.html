@@ -53,19 +53,6 @@
       letter-spacing: 0.18em;
     }
 
-    h1 {
-      margin: 0 0 8px;
-      font-size: 20px;
-      text-align: center;
-      color: #2d3436;
-      font-weight: 900;
-      letter-spacing: 0.12em;
-      text-shadow:
-        0 0 0 #fff,
-        2px 2px 0 #ffeaa7,
-        -2px 2px 0 #ffeaa7;
-    }
-
     .subtitle {
       font-size: 11px;
       color: #636e72;
@@ -220,51 +207,49 @@
       box-shadow: 0 3px 0 #636e72;
     }
 
-    /* イスアイコン：シンプル線画タイプ */
+    /* ==== イスのアイコン（サンプル画像に近い形） ==== */
     .chair-icon {
       position: relative;
       width: 26px;
-      height: 32px;
+      height: 30px;
       box-sizing: border-box;
-      border: 3px solid #2d3436;      /* 背もたれ＋座面の外枠 */
-      border-radius: 10px 10px 3px 3px;
-      border-bottom: none;            /* 足を描くので下側は開ける */
-      margin-bottom: 2px;
+      /* 背もたれ＋側面フレーム：下だけ空ける */
+      border: 3px solid #333333;
+      border-bottom: none;
+      border-radius: 10px 10px 2px 2px;
+      margin-bottom: 4px;
     }
 
-    /* 座面ライン */
-    .chair-icon::before {
+    /* 座面の2本ライン */
+    .chair-icon::before,
+    .chair-icon::after {
       content: "";
       position: absolute;
       left: -3px;
       right: -3px;
-      bottom: 6px;
-      border-bottom: 3px solid #2d3436;
+      border-bottom: 3px solid #333333;
     }
-
-    /* 予備：何も描かない */
+    .chair-icon::before {
+      bottom: 9px;  /* 上のライン */
+    }
     .chair-icon::after {
-      content: "";
-      position: absolute;
-      width: 0;
-      height: 0;
-      border: none;
+      bottom: 4px;  /* 下のライン */
     }
 
-    /* 足（左・右） */
+    /* 足（2本の縦線） */
     .chair-leg {
       position: absolute;
-      bottom: -8px;                   /* 本体から下に少し出す */
+      bottom: -10px;
       width: 0;
-      height: 10px;
-      border-left: 3px solid #2d3436;
+      height: 12px;
+      border-left: 3px solid #333333;
       border-radius: 3px;
     }
     .chair-leg.left {
-      left: 4px;
+      left: 5px;
     }
     .chair-leg.right {
-      right: 4px;
+      right: 5px;
     }
 
     .chair-label {
@@ -520,7 +505,6 @@
 
     @media (max-width: 560px) {
       .card { padding: 14px 12px 18px; }
-      h1 { font-size: 18px; }
       .chair-circle {
         width: 280px;
         height: 280px;
@@ -666,7 +650,6 @@
   const actionBtn = document.getElementById('actionBtn');
 
   const overlay = document.getElementById('overlay');
-  const overlayInner = document.getElementById('overlayInner');
   const overlayTitle = document.getElementById('overlayTitle');
   const overlaySubtitle = document.getElementById('overlaySubtitle');
   const overlayNote = document.getElementById('overlayNote');
@@ -807,7 +790,6 @@
     const buttonSize = size < 300 ? 52 : 62;
     const buttonHalf = buttonSize / 2;
 
-    // 円の半径を少し小さめにして飛び出し防止
     const radius = size / 2 - (buttonHalf + 20);
 
     for (let seat = 1; seat <= count; seat++) {
