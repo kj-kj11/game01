@@ -553,7 +553,7 @@
 
     <!-- セットアップ -->
     <div id="setupArea" style="display:none;">
-      <!-- ここをロゴ画像に -->
+      <!-- ロゴ画像 -->
       <img src="kajikoji_logo_main.png" alt="かじこじゲーム ロゴ" class="section-logo-img">
       <div class="subtitle">名前とゲームルールを決めて対戦スタート！</div>
 
@@ -588,7 +588,7 @@
 
     <!-- ゲーム本体 -->
     <div id="gameArea" style="display:none;">
-      <!-- ここもロゴ画像に -->
+      <!-- ロゴ画像 -->
       <img src="kajikoji_logo_main.png" alt="かじこじゲーム ロゴ" class="section-logo-img">
       <div class="subtitle">2人対戦・1台のスマホで遊べる心理戦ゲーム</div>
 
@@ -793,11 +793,18 @@
     overlay.classList.add('show');
   }
 
+  // ★スマホでもズレないように修正したイス配置関数
   function initChairs() {
     chairsContainer.innerHTML = '';
     const count = 12;
-    const center = 160;
-    const radius = 130;
+
+    // 実際の表示サイズから中心と半径を計算（PCでもスマホでもOK）
+    const rect = chairsContainer.getBoundingClientRect();
+    const baseSize = rect.width || 320;
+    const size = Math.min(baseSize, rect.height || baseSize);
+    const center = size / 2;
+    const radius = size / 2 - 40; // イスボタンの半径＋余白ぶん
+    const buttonHalf = 31;        // イスボタンの半分（62px / 2）
 
     for (let seat = 1; seat <= count; seat++) {
       const btn = document.createElement('button');
@@ -820,13 +827,15 @@
       btn.appendChild(icon);
       btn.appendChild(label);
 
-      // 12 が一番上になるように（seat % 12 を角度インデックスに使用）
+      // 12 が一番上、その後 1,2,... と時計回りに並べる
       const posIndex = seat % count; // 12→0, 1→1, 2→2...
       const angle = (2 * Math.PI / count) * posIndex - Math.PI / 2;
+
       const x = center + radius * Math.cos(angle);
       const y = center + radius * Math.sin(angle);
-      btn.style.left = (x - 31) + 'px';
-      btn.style.top  = (y - 31) + 'px';
+
+      btn.style.left = (x - buttonHalf) + 'px';
+      btn.style.top  = (y - buttonHalf) + 'px';
 
       btn.addEventListener('click', () => onChairClick(seat));
       chairsContainer.appendChild(btn);
