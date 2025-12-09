@@ -527,11 +527,10 @@
 <div class="app">
   <div class="card" id="mainCard">
 
-    <!-- タイトル画面：右上ロゴを全面に -->
+    <!-- タイトル画面 -->
     <div class="title-screen" id="titleScreen">
       <div class="title-inner">
         <div class="title-logo-wrap">
-          <!-- 右上ロゴの画像ファイル名 -->
           <img src="kajikoji_logo_main.png" alt="かじこじゲーム ロゴ" class="title-logo-img">
         </div>
         <div class="title-subplate">
@@ -553,7 +552,6 @@
 
     <!-- セットアップ -->
     <div id="setupArea" style="display:none;">
-      <!-- ロゴ画像 -->
       <img src="kajikoji_logo_main.png" alt="かじこじゲーム ロゴ" class="section-logo-img">
       <div class="subtitle">名前とゲームルールを決めて対戦スタート！</div>
 
@@ -588,7 +586,6 @@
 
     <!-- ゲーム本体 -->
     <div id="gameArea" style="display:none;">
-      <!-- ロゴ画像 -->
       <img src="kajikoji_logo_main.png" alt="かじこじゲーム ロゴ" class="section-logo-img">
       <div class="subtitle">2人対戦・1台のスマホで遊べる心理戦ゲーム</div>
 
@@ -623,7 +620,7 @@
   </div>
 </div>
 
-<!-- オーバーレイ（ターン／セーフ／アウト／勝利） -->
+<!-- オーバーレイ -->
 <div class="overlay" id="overlay">
   <div class="overlay-inner" id="overlayInner">
     <div class="overlay-title logo-font" id="overlayTitle"></div>
@@ -793,23 +790,30 @@
     overlay.classList.add('show');
   }
 
-  // ★スマホでもズレないように修正したイス配置関数
+  // スマホでも重ならないように、イスサイズと半径を動的に計算
   function initChairs() {
     chairsContainer.innerHTML = '';
     const count = 12;
 
-    // 実際の表示サイズから中心と半径を計算（PCでもスマホでもOK）
     const rect = chairsContainer.getBoundingClientRect();
     const baseSize = rect.width || 320;
     const size = Math.min(baseSize, rect.height || baseSize);
-    const center = size / 2;
-    const radius = size / 2 - 40; // イスボタンの半径＋余白ぶん
-    const buttonHalf = 31;        // イスボタンの半分（62px / 2）
+
+    // 画面が狭いときはイスを少し小さくする
+    const buttonSize = size < 300 ? 52 : 62;
+    const buttonHalf = buttonSize / 2;
+
+    // 円の半径：コンテナ半分 − (イス半分 + 余白10px)
+    const radius = size / 2 - (buttonHalf + 10);
 
     for (let seat = 1; seat <= count; seat++) {
       const btn = document.createElement('button');
       btn.className = 'chair';
       btn.dataset.seat = String(seat);
+
+      // イスの大きさを画面サイズに合わせて変更
+      btn.style.width = buttonSize + 'px';
+      btn.style.height = buttonSize + 'px';
 
       const icon = document.createElement('div');
       icon.className = 'chair-icon';
@@ -827,12 +831,12 @@
       btn.appendChild(icon);
       btn.appendChild(label);
 
-      // 12 が一番上、その後 1,2,... と時計回りに並べる
+      // 12が一番上になるように配置
       const posIndex = seat % count; // 12→0, 1→1, 2→2...
       const angle = (2 * Math.PI / count) * posIndex - Math.PI / 2;
 
-      const x = center + radius * Math.cos(angle);
-      const y = center + radius * Math.sin(angle);
+      const x = size / 2 + radius * Math.cos(angle);
+      const y = size / 2 + radius * Math.sin(angle);
 
       btn.style.left = (x - buttonHalf) + 'px';
       btn.style.top  = (y - buttonHalf) + 'px';
