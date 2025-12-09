@@ -2,59 +2,74 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>電気イスゲーム</title>
+  <title>かじこじゲーム 電気イス</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  <!-- 少年マンガ／バラエティっぽい日本語フォント -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rampart+One&family=Yusei+Magic&display=swap" rel="stylesheet">
+
   <style>
     * { box-sizing: border-box; }
 
     body {
       margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-      background:
-        radial-gradient(circle at top,#f97316 0,#7c2d12 45%,#020617 80%);
-      color: #e5e7eb;
+      font-family: "Yusei Magic", -apple-system, BlinkMacSystemFont, "Yu Gothic", "ヒラギノ角ゴ ProN W3", system-ui, sans-serif;
+      /* 黄色ドット背景（番組タイトルっぽい） */
+      background-color: #ffe36a;
+      background-image:
+        radial-gradient(#f5d76e 1px, transparent 1px),
+        radial-gradient(#f5d76e 1px, transparent 1px);
+      background-position: 0 0, 2px 2px;
+      background-size: 4px 4px;
       min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
+      color: #2d3436;
     }
 
     .app {
       width: 100%;
-      max-width: 520px;
+      max-width: 560px;
       padding: 16px;
       position: relative;
       z-index: 1;
     }
 
     .card {
-      background: radial-gradient(circle at top,#111827,#020617 65%);
-      border-radius: 20px;
-      border: 2px solid #facc15;
+      background: #fffdf7;
+      border-radius: 22px;
+      border: 4px solid #f9ca24;
       padding: 16px 16px 20px;
       box-shadow:
-        0 0 0 4px rgba(15,23,42,0.85),
-        0 26px 50px rgba(0,0,0,0.85);
-      backdrop-filter: blur(10px);
+        0 12px 26px rgba(0,0,0,0.3),
+        0 0 0 5px rgba(255,255,255,0.9);
+    }
+
+    .logo-font {
+      font-family: "Rampart One", "Yusei Magic", system-ui, sans-serif;
+      font-weight: 900;
+      letter-spacing: 0.18em;
     }
 
     h1 {
       margin: 0 0 8px;
-      font-size: 22px;
+      font-size: 20px;
       text-align: center;
+      color: #2d3436;
+      font-weight: 900;
       letter-spacing: 0.12em;
-      color: #fef9c3;
       text-shadow:
-        0 0 0 #000,
-        2px 2px 0 #000,
-        -2px 2px 0 #000,
-        2px -2px 0 #000,
-        -2px -2px 0 #000;
+        0 0 0 #fff,
+        2px 2px 0 #ffeaa7,
+        -2px 2px 0 #ffeaa7;
     }
 
     .subtitle {
       font-size: 11px;
-      color: #e5e7eb;
+      color: #636e72;
       text-align: center;
       margin-bottom: 14px;
     }
@@ -65,30 +80,34 @@
       margin-bottom: 10px;
     }
 
-    input[type="text"] {
+    input[type="text"],
+    input[type="number"] {
       flex: 1;
       padding: 8px 10px;
-      border-radius: 8px;
-      border: 1px solid #4b5563;
-      background: #020617;
-      color: #e5e7eb;
+      border-radius: 10px;
+      border: 1px solid #b2bec3;
+      background: #ffffff;
+      color: #2d3436;
       font-size: 14px;
     }
 
-    input[type="text"]:focus {
+    input[type="text"]:focus,
+    input[type="number"]:focus {
       outline: none;
-      border-color: #38bdf8;
-      box-shadow: 0 0 0 1px #38bdf8;
+      border-color: #0984e3;
+      box-shadow: 0 0 0 2px rgba(9,132,227,0.25);
     }
 
     button {
       border-radius: 999px;
       border: none;
-      padding: 8px 16px;
+      padding: 9px 16px;
       font-size: 14px;
       cursor: pointer;
       white-space: nowrap;
       transition: transform 0.08s ease, box-shadow 0.08s ease, opacity 0.1s, filter 0.1s;
+      font-weight: 700;
+      font-family: "Yusei Magic", system-ui, sans-serif;
     }
     button:active {
       transform: translateY(1px);
@@ -101,22 +120,24 @@
       box-shadow: none;
     }
     .btn-primary {
-      background: radial-gradient(circle at top left,#facc15,#f97316 40%,#ef4444);
-      color: #111827;
-      font-weight: 700;
-      box-shadow: 0 8px 22px rgba(248,181,48,0.7);
+      background: linear-gradient(135deg,#ff4b5c,#ff9f1a);
+      color: #ffffff;
+      text-shadow: 0 0 4px rgba(0,0,0,0.3);
+      box-shadow: 0 6px 14px rgba(0,0,0,0.35);
       width: 100%;
-    }
-    .btn-secondary {
-      background: #111827;
-      color: #e5e7eb;
-      border: 1px solid #4b5563;
-      width: 100%;
+      border: 2px solid #000000;
     }
 
     .section-title {
       font-size: 12px;
-      color: #9ca3af;
+      color: #636e72;
+      margin-bottom: 4px;
+      font-weight: 700;
+    }
+
+    .section-sub {
+      font-size: 11px;
+      color: #b2bec3;
       margin-bottom: 4px;
     }
 
@@ -126,16 +147,17 @@
       align-items: center;
       margin-bottom: 10px;
       padding: 8px 10px;
-      border-radius: 12px;
-      background: linear-gradient(90deg,#020617,#020617 30%,#0b1120);
-      border: 1px solid #fbbf24;
-      box-shadow: 0 0 12px rgba(250,191,36,0.3);
+      border-radius: 14px;
+      background: linear-gradient(90deg,#ff4b5c,#ff9f1a,#ffde59);
+      border: 3px solid #000;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+      color: #ffffff;
+      text-shadow: 0 0 4px rgba(0,0,0,0.5);
     }
 
     .round {
       font-size: 13px;
-      color: #facc15;
-      font-weight: 600;
+      font-weight: 900;
     }
 
     .scores {
@@ -149,86 +171,87 @@
 
     .label {
       font-size: 11px;
-      color: #9ca3af;
     }
 
     .current-role {
       margin-bottom: 10px;
       padding: 8px 10px;
-      border-radius: 10px;
-      border: 1px dashed #f97316;
+      border-radius: 12px;
+      border: 2px solid #000;
       font-size: 12px;
-      background: rgba(15,23,42,0.9);
+      background: #ffeaa7;
+      color: #2d3436;
+      box-shadow: 0 4px 0 #f1c40f;
     }
     .current-role strong {
-      color: #fef9c3;
+      color: #e74c3c;
     }
 
-    /* 円形イス配置 */
+    /* イス配置 */
     .chair-area {
       display: flex;
       justify-content: center;
-      margin: 8px 0 12px;
+      margin: 10px 0 14px;
     }
     .chair-circle {
       position: relative;
-      width: 260px;
-      height: 260px;
+      width: 320px;
+      height: 320px;
       border-radius: 50%;
-      background: radial-gradient(circle at center,#020617 0,#020617 40%,#0b1120 70%);
-      box-shadow: inset 0 0 30px rgba(0,0,0,0.6);
+      background:
+        radial-gradient(circle at center,#ffffff 0,#ffeaa7 40%,#ffde59 75%);
+      box-shadow: inset 0 0 20px rgba(0,0,0,0.15);
+      border: 3px solid #000;
     }
 
     .chair {
       position: absolute;
-      width: 56px;
-      height: 56px;
-      border-radius: 16px;
-      border: 2px solid #4b5563;
-      background: #020617;
+      width: 62px;
+      height: 62px;
+      border-radius: 18px;
+      border: 3px solid #000;
+      background: #ffffff;
       cursor: pointer;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 3px;
+      gap: 4px;
       transition: background 0.12s, transform 0.08s, border-color 0.12s, box-shadow 0.12s, opacity 0.12s;
+      box-shadow: 0 3px 0 #636e72;
     }
 
-    /* 椅子ピクトグラム（背もたれ＋座面＋足） */
     .chair-icon {
       position: relative;
-      width: 24px;
-      height: 28px;
+      width: 26px;
+      height: 30px;
     }
     .chair-icon::before {
-      /* 座面 */
       content: "";
       position: absolute;
       bottom: 6px;
-      left: 2px;
+      left: 3px;
       width: 20px;
       height: 6px;
-      background: #e5e7eb;
+      background: #2d3436;
       border-radius: 4px;
     }
     .chair-icon::after {
-      /* 背もたれ */
       content: "";
       position: absolute;
-      bottom: 14px;
-      left: 5px;
+      bottom: 15px;
+      left: 6px;
       width: 6px;
       height: 12px;
-      background: #e5e7eb;
+      background: #2d3436;
       border-radius: 3px 3px 0 0;
     }
     .chair-leg {
       position: absolute;
       bottom: 0;
       width: 4px;
-      height: 7px;
-      background: #e5e7eb;
+      height: 8px;
+      background: #2d3436;
       border-radius: 2px;
     }
     .chair-leg.left {
@@ -240,38 +263,40 @@
 
     .chair-label {
       font-size: 13px;
-      font-weight: 700;
-      color: #facc15;
+      font-weight: 900;
+      color: #ff4b5c;
+      text-shadow: 0 0 2px rgba(255,255,255,0.8);
     }
 
     .chair.selected-attack {
-      background: radial-gradient(circle at top,#fb923c,#f97316 40%,#7c2d12);
-      border-color: #fed7aa;
-      box-shadow: 0 0 0 2px rgba(248,181,48,0.7);
-      transform: scale(1.05);
+      background: #ffde59;
+      border-color: #000;
+      box-shadow: 0 0 0 3px #ff4b5c;
+      transform: scale(1.06);
     }
     .chair.selected-defend {
-      background: radial-gradient(circle at top,#22c55e,#16a34a 40%,#14532d);
-      border-color: #bbf7d0;
-      box-shadow: 0 0 0 2px rgba(34,197,94,0.6);
-      transform: scale(1.05);
+      background: #74b9ff;
+      border-color: #000;
+      box-shadow: 0 0 0 3px #0984e3;
+      transform: scale(1.06);
     }
     .chair.reveal-hit {
-      background: radial-gradient(circle at top,#ef4444,#b91c1c 40%,#450a0a);
-      border-color: #fecaca;
+      background: #ff7675;
+      border-color: #000;
       animation: pulseHit .7s ease-in-out 3;
     }
     .chair.reveal-safe {
-      background: radial-gradient(circle at top,#22c55e,#16a34a 40%,#14532d);
-      border-color: #bbf7d0;
+      background: #55efc4;
+      border-color: #000;
       animation: pulseSafe .7s ease-in-out 3;
     }
     .chair-used {
-      background: #020617;
-      border-style: dashed;
-      border-color: #374151;
-      opacity: 0.35;
+      background: #dfe6e9;
+      border-style: solid;
+      border-color: #636e72;
+      opacity: 0.45;
       cursor: default;
+      box-shadow: none;
     }
 
     @keyframes pulseHit {
@@ -287,81 +312,105 @@
 
     .info {
       font-size: 12px;
-      color: #f9fafb;
+      color: #2d3436;
       min-height: 32px;
       margin-bottom: 6px;
     }
     .info strong {
-      color: #fef9c3;
+      color: #e74c3c;
     }
     .highlight {
-      color: #facc15;
-      font-weight: 600;
+      color: #d63031;
+      font-weight: 700;
     }
 
     .result {
       font-size: 13px;
       margin-bottom: 8px;
       min-height: 34px;
+      color: #2d3436;
     }
 
     .small-note {
       font-size: 11px;
-      color: #f9fafb;
+      color: #636e72;
       margin-top: 6px;
       line-height: 1.4;
     }
 
-    /* タイトル画面 */
+    /* タイトル画面：ロゴ画像＋サブタイトル */
     .title-screen {
       position: fixed;
       inset: 0;
-      background:
-        radial-gradient(circle at top,#fecaca 0,#f97316 35%,#7c2d12 70%),
-        radial-gradient(circle at bottom,#0f172a 0,#020617 60%);
       display: flex;
       align-items: center;
       justify-content: center;
       z-index: 30;
+      background-color: #ffe36a;
+      background-image:
+        radial-gradient(#f5d76e 1px, transparent 1px),
+        radial-gradient(#f5d76e 1px, transparent 1px);
+      background-position: 0 0, 2px 2px;
+      background-size: 4px 4px;
     }
     .title-inner {
       text-align: center;
-      padding: 24px 18px 28px;
-      border-radius: 22px;
-      background: radial-gradient(circle at top,#0f172a,#020617 65%);
-      border: 3px solid #fbbf24;
+      padding: 26px 18px 28px;
+      border-radius: 26px;
+      background: #fffdf7;
+      border: 4px solid #000;
       box-shadow:
-        0 0 0 4px rgba(15,23,42,0.9),
-        0 24px 50px rgba(0,0,0,0.9);
-      max-width: 360px;
+        0 18px 32px rgba(0,0,0,0.4),
+        0 0 0 6px #ffde59;
+      max-width: 380px;
       width: 90%;
     }
-    .title-logo-main {
-      font-size: 26px;
-      margin-bottom: 6px;
-      color: #fef9c3;
-      font-weight: 900;
-      letter-spacing: 0.18em;
-      text-shadow:
-        0 0 0 #000,
-        2px 2px 0 #000,
-        -2px 2px 0 #000,
-        2px -2px 0 #000,
-        -2px -2px 0 #000;
+    .title-logo-wrap {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 10px;
     }
-    .title-logo-sub {
-      font-size: 14px;
-      color: #fbbf24;
-      margin-bottom: 16px;
-      letter-spacing: 0.14em;
+    .title-logo-img {
+      max-width: 260px;
+      width: 100%;
+      height: auto;
+      display: block;
+      image-rendering: crisp-edges;
+    }
+    .title-subplate {
+      display: inline-block;
+      margin-bottom: 14px;
+      padding: 4px 16px;
+      border-radius: 999px;
+      background: #ff4b5c;
+      border: 3px solid #000;
+      box-shadow: 0 4px 0 #c0392b;
+    }
+    .title-subplate span {
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: 900;
+      text-shadow: 0 0 4px rgba(0,0,0,0.4);
+      letter-spacing: 0.15em;
+      font-family: "Rampart One","Yusei Magic",system-ui,sans-serif;
     }
     .title-caption {
       font-size: 12px;
-      color: #e5e7eb;
+      color: #636e72;
       margin-bottom: 14px;
     }
     .title-btn {
       margin-top: 4px;
+    }
+
+    /* セットアップ・ゲーム画面用ロゴ */
+    .section-logo-img {
+      max-width: 220px;
+      width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto 8px;
+      image-rendering: crisp-edges;
     }
 
     /* オーバーレイ（ターン・セーフ・アウト・勝利） */
@@ -377,51 +426,86 @@
     .overlay.show {
       display: flex;
     }
+
     .overlay-inner {
       width: 100%;
       max-width: 360px;
-      padding: 20px 16px 22px;
-      border-radius: 20px;
+      padding: 18px 16px 18px;
+      border-radius: 22px;
       text-align: center;
-      color: #111827;
-      box-shadow: 0 24px 50px rgba(0,0,0,0.9);
+      color: #2d3436;
+      box-shadow: 0 18px 40px rgba(0,0,0,0.35);
       animation: popIn 0.25s ease-out;
+      border: 4px solid #000;
+      background: #fffdf7;
     }
+
     .overlay-title {
-      font-size: 26px;
-      font-weight: 900;
+      font-size: 22px;
       margin-bottom: 6px;
-      letter-spacing: 0.12em;
+      font-weight: 900;
+      letter-spacing: 0.18em;
+      text-shadow:
+        0 0 0 #fff,
+        2px 2px 0 #ffeaa7,
+        -2px 2px 0 #ffeaa7;
     }
     .overlay-subtitle {
       font-size: 14px;
       font-weight: 600;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
     .overlay-note {
       font-size: 11px;
       opacity: 0.9;
     }
+    .overlay-btn {
+      margin-top: 12px;
+      width: 100%;
+    }
 
     .overlay-turn {
-      background: radial-gradient(circle at top,#bfdbfe,#60a5fa 40%,#1e40af);
-      border: 3px solid #facc15;
-      color: #0f172a;
+      background:
+        radial-gradient(circle at center,#ffe36a 0,#ffde59 45%,#ff9f1a 100%);
     }
+    .overlay-turn .overlay-inner {
+      background: #fffdf7;
+    }
+
     .overlay-safe {
-      background: radial-gradient(circle at top,#bbf7d0,#34d399 40%,#166534);
-      border: 3px solid #facc15;
-      color: #022c22;
+      background:
+        radial-gradient(circle at center,#c7f9cc 0,#55efc4 45%,#00b894 100%);
     }
+    .overlay-safe .overlay-inner {
+      background: #ffffff;
+      border-color: #000;
+    }
+    .overlay-safe .overlay-title {
+      color: #00b894;
+    }
+
     .overlay-out {
-      background: radial-gradient(circle at top,#fecaca,#f97316 35%,#7f1d1d);
-      border: 3px solid #facc15;
-      color: #111827;
+      background:
+        radial-gradient(circle at center,#ffb3b3 0,#ff7675 45%,#d63031 100%);
     }
+    .overlay-out .overlay-inner {
+      background: #ffffff;
+      border-color: #000;
+    }
+    .overlay-out .overlay-title {
+      color: #d63031;
+    }
+
     .overlay-win {
-      background: radial-gradient(circle at top,#fef9c3,#facc15 35%,#f97316 70%);
-      border: 3px solid #ef4444;
-      color: #111827;
+      background:
+        radial-gradient(circle at center,#ffde59 0,#ff9f1a 45%,#ff4b5c 100%);
+    }
+    .overlay-win .overlay-inner {
+      background: #ffffff;
+      border-color: #000;
+    }
+    .overlay-win .overlay-title {
+      color: #ff4b5c;
     }
 
     @keyframes popIn {
@@ -429,12 +513,12 @@
       100% { transform: scale(1); opacity: 1; }
     }
 
-    @media (max-width: 520px) {
+    @media (max-width: 560px) {
       .card { padding: 14px 12px 18px; }
-      h1 { font-size: 20px; }
+      h1 { font-size: 18px; }
       .chair-circle {
-        width: 240px;
-        height: 240px;
+        width: 280px;
+        height: 280px;
       }
     }
   </style>
@@ -443,20 +527,25 @@
 <div class="app">
   <div class="card" id="mainCard">
 
-    <!-- タイトル画面 -->
+    <!-- タイトル画面：右上ロゴを全面に -->
     <div class="title-screen" id="titleScreen">
       <div class="title-inner">
-        <div class="title-logo-main">電気イスゲーム</div>
-        <div class="title-logo-sub">PARTY BATTLE</div>
+        <div class="title-logo-wrap">
+          <!-- 右上ロゴの画像ファイル名 -->
+          <img src="kajikoji_logo_main.png" alt="かじこじゲーム ロゴ" class="title-logo-img">
+        </div>
+        <div class="title-subplate">
+          <span>電気イスゲーム</span>
+        </div>
         <div class="title-caption">
           12脚のイスから電流イスを読み合う、<br>
-          3アウト or 40点先取で勝負が決まる<br>
-          心理戦パーティゲーム！
+          アウト回数と勝利点を決めて遊べる<br>
+          2人用心理戦パーティゲーム！
         </div>
         <button id="titleStartBtn" class="btn-primary title-btn">
-          ゲームスタート
+          ゲームスタート！
         </button>
-        <div style="font-size:10px;color:#f9fafb;margin-top:8px;">
+        <div style="font-size:10px;color:#636e72;margin-top:8px;">
           ※ 音が鳴らない場合は、画面を一度タップしてからプレイしてください。
         </div>
       </div>
@@ -464,8 +553,9 @@
 
     <!-- セットアップ -->
     <div id="setupArea" style="display:none;">
-      <h1>プレイヤー設定</h1>
-      <div class="subtitle">名前を入力して対戦を始めよう</div>
+      <!-- ここをロゴ画像に -->
+      <img src="kajikoji_logo_main.png" alt="かじこじゲーム ロゴ" class="section-logo-img">
+      <div class="subtitle">名前とゲームルールを決めて対戦スタート！</div>
 
       <div class="section-title">プレイヤー名</div>
       <div class="row">
@@ -474,18 +564,33 @@
       <div class="row">
         <input id="p2Name" type="text" placeholder="プレイヤー2（例：相手）">
       </div>
+
+      <div style="height:8px;"></div>
+
+      <div class="section-title">ゲーム設定</div>
+      <div class="section-sub">※未入力の場合はデフォルト値が使われます</div>
+      <div class="row">
+        <input id="roundCount" type="number" min="1" max="20" value="10" placeholder="ラウンド数">
+        <input id="maxOuts" type="number" min="1" max="10" value="3" placeholder="アウトで負け">
+      </div>
+      <div class="row">
+        <input id="winScore" type="number" min="1" max="200" value="40" placeholder="勝利点">
+      </div>
+
       <button id="startBtn" class="btn-primary">ゲーム開始</button>
       <div class="small-note">
-        ● 電気イスに<strong>3回座ると負け</strong>（3アウト）。<br>
-        ● <strong>40点以上先取したら勝ち</strong>。<br>
-        ● セーフで獲得したイスは、その後のラウンドでは選べません。
+        ● ラウンド数 … 最大何ラウンドまで戦うか。<br>
+        ● アウト … この回数アウトになるとその場で負け。<br>
+        ● 勝利点 … この点数以上になった時点で勝ち。<br>
+        ● ルールは毎回ここで変更できます。
       </div>
     </div>
 
     <!-- ゲーム本体 -->
     <div id="gameArea" style="display:none;">
-      <h1>電気イスゲーム</h1>
-      <div class="subtitle">水曜日のダウンタウン風・2人対戦</div>
+      <!-- ここもロゴ画像に -->
+      <img src="kajikoji_logo_main.png" alt="かじこじゲーム ロゴ" class="section-logo-img">
+      <div class="subtitle">2人対戦・1台のスマホで遊べる心理戦ゲーム</div>
 
       <div class="scoreboard">
         <div class="round" id="roundInfo"></div>
@@ -512,18 +617,21 @@
         ● 防御側は座るイスを選びます。<br>
         ● セーフ：イスの数字が得点になり、そのイスは使用済みに。<br>
         ● アウト：その時点の得点が<strong>0点にリセット</strong>されます。<br>
-        ● 3アウトになったプレイヤー or 40点以上のプレイヤーが出た時点で決着。
+        ● アウト回数と勝利点・ラウンド数は、スタート画面で設定した値が使われます。
       </div>
     </div>
   </div>
 </div>
 
-<!-- オーバーレイ -->
+<!-- オーバーレイ（ターン／セーフ／アウト／勝利） -->
 <div class="overlay" id="overlay">
   <div class="overlay-inner" id="overlayInner">
-    <div class="overlay-title" id="overlayTitle"></div>
+    <div class="overlay-title logo-font" id="overlayTitle"></div>
     <div class="overlay-subtitle" id="overlaySubtitle"></div>
     <div class="overlay-note" id="overlayNote"></div>
+    <button id="overlayRestartBtn" class="btn-primary overlay-btn" style="display:none;">
+      最初からやり直す
+    </button>
   </div>
 </div>
 
@@ -538,6 +646,10 @@
 
   const p1NameInput = document.getElementById('p1Name');
   const p2NameInput = document.getElementById('p2Name');
+  const roundCountInput = document.getElementById('roundCount');
+  const maxOutsInput = document.getElementById('maxOuts');
+  const winScoreInput = document.getElementById('winScore');
+
   const startBtn = document.getElementById('startBtn');
   const setupArea = document.getElementById('setupArea');
   const gameArea = document.getElementById('gameArea');
@@ -556,6 +668,7 @@
   const overlayTitle = document.getElementById('overlayTitle');
   const overlaySubtitle = document.getElementById('overlaySubtitle');
   const overlayNote = document.getElementById('overlayNote');
+  const overlayRestartBtn = document.getElementById('overlayRestartBtn');
 
   const bgmTension = document.getElementById('bgmTension');
   const bgmSafe = document.getElementById('bgmSafe');
@@ -566,8 +679,10 @@
     scores: [0,0],
     outs: [0,0],
     round: 1,
-    maxRounds: 8,
-    phase: 'attack', // 'attack' | 'defend' | 'reveal' | 'end'
+    maxRounds: 10,
+    maxOuts: 3,
+    winScore: 40,
+    phase: 'attack',
     attacker: 0,
     defender: 1,
     electricSeat: null,
@@ -575,7 +690,7 @@
     lastHit: false,
     usedSeats: [],
     winnerIndex: null,
-    winReason: null // 'outs' | 'score' | null
+    winReason: null
   };
 
   function stopAllBgm() {
@@ -600,12 +715,12 @@
     bgmOut.play().catch(() => {});
   }
 
-  function showOverlay(type, main, sub, note, duration = 1500) {
-    overlayInner.className = 'overlay-inner';
-    overlayInner.classList.add(type);
+  function showOverlayBox(type, main, sub, note, duration = 1500) {
+    overlay.className = 'overlay ' + type;
     overlayTitle.textContent = main;
     overlaySubtitle.innerHTML = sub || '';
     overlayNote.innerHTML = note || '';
+    overlayRestartBtn.style.display = 'none';
     overlay.classList.add('show');
     if (duration > 0) {
       setTimeout(() => {
@@ -614,12 +729,20 @@
     }
   }
 
-  function showTurnOverlay(playerName) {
-    showOverlay(
+  function showTurnOverlay(playerName, role) {
+    const sub =
+      role === 'attack'
+        ? '攻撃ターン：電気を流すイスを1つ選びます'
+        : '防御ターン：座るイスを1つ選びます';
+    const note =
+      role === 'attack'
+        ? 'スマホを攻撃側の人だけが見てください。'
+        : 'スマホを防御側の人だけが見てください。';
+    showOverlayBox(
       'overlay-turn',
       `${playerName} のターン！`,
-      '攻撃側が電気を流すイスを選びます',
-      'スマホを攻撃側の人だけが見てください。',
+      sub,
+      note,
       1500
     );
   }
@@ -628,18 +751,18 @@
     const defName = state.names[state.defender];
     if (hit) {
       playOutBgm();
-      showOverlay(
+      showOverlayBox(
         'overlay-out',
-        'OUT!!',
+        'アウト!!',
         `${defName} は電気イスに座ってしまった！`,
-        `OUT が ${state.outs[state.defender]} 回になりました。`,
+        `OUT が ${state.outs[state.defender]} 回になりました（${state.maxOuts} アウトで敗北）。`,
         1700
       );
     } else {
       playSafeBgm();
-      showOverlay(
+      showOverlayBox(
         'overlay-safe',
-        'SAFE!!',
+        'セーフ!!',
         `${defName} は見事に回避！`,
         `イス ${state.defendSeat} の ${state.defendSeat} 点を獲得！`,
         1700
@@ -654,33 +777,32 @@
     if (state.winReason === 'outs') {
       const loserIndex = state.winnerIndex === 0 ? 1 : 0;
       const loserName = state.names[loserIndex];
-      reasonText = `${loserName} が 3アウトになったため、${winnerName} の勝利！`;
+      reasonText = `${loserName} が ${state.maxOuts} アウトになったため、${winnerName} の勝利！`;
     } else if (state.winReason === 'score') {
-      reasonText = `${winnerName} が 40点以上を先取したため、その時点で勝利！`;
+      reasonText = `${winnerName} が ${state.winScore}点以上を先取したため、その時点で勝利！`;
     } else {
       reasonText = 'ポイント勝負の結果、より高得点のプレイヤーが勝利！';
     }
 
     stopAllBgm();
-    showOverlay(
-      'overlay-win',
-      `${winnerName} の勝利！`,
-      'ゲームセット！',
-      reasonText,
-      0 // 自動で閉じない
-    );
+    overlay.className = 'overlay overlay-win';
+    overlayTitle.textContent = `${winnerName} の勝利！`;
+    overlaySubtitle.innerHTML = 'ゲームセット！';
+    overlayNote.innerHTML = reasonText;
+    overlayRestartBtn.style.display = 'block';
+    overlay.classList.add('show');
   }
 
   function initChairs() {
     chairsContainer.innerHTML = '';
     const count = 12;
-    const center = 130;
-    const radius = 100; // 少し広げて余裕を持たせる
+    const center = 160;
+    const radius = 130;
 
-    for (let i = 1; i <= count; i++) {
+    for (let seat = 1; seat <= count; seat++) {
       const btn = document.createElement('button');
       btn.className = 'chair';
-      btn.dataset.seat = String(i);
+      btn.dataset.seat = String(seat);
 
       const icon = document.createElement('div');
       icon.className = 'chair-icon';
@@ -693,25 +815,26 @@
 
       const label = document.createElement('div');
       label.className = 'chair-label';
-      label.textContent = i;
+      label.textContent = seat;
 
       btn.appendChild(icon);
       btn.appendChild(label);
 
-      const angle = (2 * Math.PI / count) * (i - 1) - Math.PI / 2;
+      // 12 が一番上になるように（seat % 12 を角度インデックスに使用）
+      const posIndex = seat % count; // 12→0, 1→1, 2→2...
+      const angle = (2 * Math.PI / count) * posIndex - Math.PI / 2;
       const x = center + radius * Math.cos(angle);
       const y = center + radius * Math.sin(angle);
-      btn.style.left = (x - 28) + 'px';
-      btn.style.top = (y - 28) + 'px';
+      btn.style.left = (x - 31) + 'px';
+      btn.style.top  = (y - 31) + 'px';
 
-      btn.addEventListener('click', () => onChairClick(i));
+      btn.addEventListener('click', () => onChairClick(seat));
       chairsContainer.appendChild(btn);
     }
   }
 
   function onChairClick(seat) {
     if (state.usedSeats.includes(seat)) return;
-
     if (state.phase === 'attack') {
       state.electricSeat = seat;
     } else if (state.phase === 'defend') {
@@ -875,17 +998,15 @@
   }
 
   function checkWinCondition() {
-    // 3アウト敗北 → 相手の勝ち
     for (let i = 0; i < 2; i++) {
-      if (state.outs[i] >= 3) {
+      if (state.outs[i] >= state.maxOuts) {
         state.winnerIndex = i === 0 ? 1 : 0;
         state.winReason = 'outs';
         return;
       }
     }
-    // 40点以上先取したプレイヤーが勝ち
     for (let i = 0; i < 2; i++) {
-      if (state.scores[i] >= 40) {
+      if (state.scores[i] >= state.winScore) {
         state.winnerIndex = i;
         state.winReason = 'score';
         return;
@@ -895,11 +1016,36 @@
     state.winReason = null;
   }
 
+  function resetToSetup() {
+    overlay.classList.remove('show');
+    gameArea.style.display = 'none';
+    setupArea.style.display = 'block';
+    resultText.textContent = '';
+    infoText.textContent = '';
+    stopAllBgm();
+  }
+
   function startGame() {
     const n1 = p1NameInput.value.trim();
     const n2 = p2NameInput.value.trim();
     state.names[0] = n1 || 'プレイヤー1';
     state.names[1] = n2 || 'プレイヤー2';
+
+    let rounds = parseInt(roundCountInput.value, 10);
+    let outs = parseInt(maxOutsInput.value, 10);
+    let winScore = parseInt(winScoreInput.value, 10);
+
+    if (isNaN(rounds)) rounds = 10;
+    if (isNaN(outs)) outs = 3;
+    if (isNaN(winScore)) winScore = 40;
+
+    rounds = Math.min(Math.max(rounds, 1), 20);
+    outs = Math.min(Math.max(outs, 1), 10);
+    winScore = Math.min(Math.max(winScore, 1), 200);
+
+    state.maxRounds = rounds;
+    state.maxOuts = outs;
+    state.winScore = winScore;
 
     state.scores = [0,0];
     state.outs = [0,0];
@@ -919,7 +1065,7 @@
     initChairs();
     render();
     playTensionBgm();
-    showTurnOverlay(state.names[state.attacker]);
+    showTurnOverlay(state.names[state.attacker],'attack');
   }
 
   function nextPhase() {
@@ -927,6 +1073,7 @@
       state.phase = 'defend';
       state.defendSeat = null;
       render();
+      showTurnOverlay(state.names[state.defender],'defend');
     } else if (state.phase === 'defend') {
       const hit = state.electricSeat === state.defendSeat;
       state.lastHit = hit;
@@ -954,7 +1101,6 @@
         render();
         showWinOverlay();
       } else {
-        // 次ラウンドへ
         state.round += 1;
         state.attacker = (state.attacker === 0) ? 1 : 0;
         state.defender = 1 - state.attacker;
@@ -963,17 +1109,11 @@
         state.lastHit = false;
         state.phase = 'attack';
         playTensionBgm();
-        showTurnOverlay(state.names[state.attacker]);
+        showTurnOverlay(state.names[state.attacker],'attack');
         render();
       }
     } else if (state.phase === 'end') {
-      // 最初に戻る
-      overlay.classList.remove('show');
-      gameArea.style.display = 'none';
-      setupArea.style.display = 'block';
-      resultText.textContent = '';
-      infoText.textContent = '';
-      stopAllBgm();
+      resetToSetup();
     }
   }
 
@@ -984,14 +1124,14 @@
 
   startBtn.addEventListener('click', startGame);
   actionBtn.addEventListener('click', nextPhase);
+  overlayRestartBtn.addEventListener('click', resetToSetup);
 
-  [p1NameInput, p2NameInput].forEach(i => {
+  [p1NameInput, p2NameInput, roundCountInput, maxOutsInput, winScoreInput].forEach(i => {
     i.addEventListener('keydown', e => {
       if (e.key === 'Enter') startGame();
     });
   });
 
-  // 初期イスレイアウト
   initChairs();
 </script>
 </body>
