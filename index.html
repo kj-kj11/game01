@@ -207,50 +207,18 @@
       box-shadow: 0 3px 0 #636e72;
     }
 
-    /* ==== イスのアイコン（サンプル画像に近い形） ==== */
+    /* ★ ここから：画像イスアイコン ★ */
     .chair-icon {
-      position: relative;
-      width: 26px;
-      height: 30px;
-      box-sizing: border-box;
-      /* 背もたれ＋側面フレーム：下だけ空ける */
-      border: 3px solid #333333;
-      border-bottom: none;
-      border-radius: 10px 10px 2px 2px;
-      margin-bottom: 4px;
+      width: 32px;
+      height: 36px;
+      background-image: url("chair_icon.png"); /* 椅子画像ファイルを使用 */
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      margin-bottom: 2px;
     }
-
-    /* 座面の2本ライン */
-    .chair-icon::before,
-    .chair-icon::after {
-      content: "";
-      position: absolute;
-      left: -3px;
-      right: -3px;
-      border-bottom: 3px solid #333333;
-    }
-    .chair-icon::before {
-      bottom: 9px;  /* 上のライン */
-    }
-    .chair-icon::after {
-      bottom: 4px;  /* 下のライン */
-    }
-
-    /* 足（2本の縦線） */
-    .chair-leg {
-      position: absolute;
-      bottom: -10px;
-      width: 0;
-      height: 12px;
-      border-left: 3px solid #333333;
-      border-radius: 3px;
-    }
-    .chair-leg.left {
-      left: 5px;
-    }
-    .chair-leg.right {
-      right: 5px;
-    }
+    /* 足は画像の中に含まれているので、追加の .chair-leg は不要 */
+    /* ★ ここまで：画像イスアイコン ★ */
 
     .chair-label {
       font-size: 13px;
@@ -801,13 +769,7 @@
       btn.style.height = buttonSize + 'px';
 
       const icon = document.createElement('div');
-      icon.className = 'chair-icon';
-      const legL = document.createElement('div');
-      legL.className = 'chair-leg left';
-      const legR = document.createElement('div');
-      legR.className = 'chair-leg right';
-      icon.appendChild(legL);
-      icon.appendChild(legR);
+      icon.className = 'chair-icon';   // 画像イス
 
       const label = document.createElement('div');
       label.className = 'chair-label';
