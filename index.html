@@ -16,7 +16,6 @@
     body {
       margin: 0;
       font-family: "Yusei Magic", -apple-system, BlinkMacSystemFont, "Yu Gothic", "ヒラギノ角ゴ ProN W3", system-ui, sans-serif;
-      /* 黄色ドット背景（番組タイトルっぽい） */
       background-color: #ffe36a;
       background-image:
         radial-gradient(#f5d76e 1px, transparent 1px),
@@ -221,44 +220,51 @@
       box-shadow: 0 3px 0 #636e72;
     }
 
+    /* イスアイコン：シンプル線画タイプ */
     .chair-icon {
       position: relative;
       width: 26px;
-      height: 30px;
+      height: 32px;
+      box-sizing: border-box;
+      border: 3px solid #2d3436;      /* 背もたれ＋座面の外枠 */
+      border-radius: 10px 10px 3px 3px;
+      border-bottom: none;            /* 足を描くので下側は開ける */
+      margin-bottom: 2px;
     }
+
+    /* 座面ライン */
     .chair-icon::before {
       content: "";
       position: absolute;
+      left: -3px;
+      right: -3px;
       bottom: 6px;
-      left: 3px;
-      width: 20px;
-      height: 6px;
-      background: #2d3436;
-      border-radius: 4px;
+      border-bottom: 3px solid #2d3436;
     }
+
+    /* 予備：何も描かない */
     .chair-icon::after {
       content: "";
       position: absolute;
-      bottom: 15px;
-      left: 6px;
-      width: 6px;
-      height: 12px;
-      background: #2d3436;
-      border-radius: 3px 3px 0 0;
+      width: 0;
+      height: 0;
+      border: none;
     }
+
+    /* 足（左・右） */
     .chair-leg {
       position: absolute;
-      bottom: 0;
-      width: 4px;
-      height: 8px;
-      background: #2d3436;
-      border-radius: 2px;
+      bottom: -8px;                   /* 本体から下に少し出す */
+      width: 0;
+      height: 10px;
+      border-left: 3px solid #2d3436;
+      border-radius: 3px;
     }
     .chair-leg.left {
-      left: 5px;
+      left: 4px;
     }
     .chair-leg.right {
-      right: 5px;
+      right: 4px;
     }
 
     .chair-label {
@@ -338,7 +344,7 @@
       line-height: 1.4;
     }
 
-    /* タイトル画面：ロゴ画像＋サブタイトル */
+    /* タイトル画面 */
     .title-screen {
       position: fixed;
       inset: 0;
@@ -403,7 +409,6 @@
       margin-top: 4px;
     }
 
-    /* セットアップ・ゲーム画面用ロゴ */
     .section-logo-img {
       max-width: 220px;
       width: 100%;
@@ -413,7 +418,7 @@
       image-rendering: crisp-edges;
     }
 
-    /* オーバーレイ（ターン・セーフ・アウト・勝利） */
+    /* オーバーレイ */
     .overlay {
       position: fixed;
       inset: 0;
@@ -790,7 +795,7 @@
     overlay.classList.add('show');
   }
 
-  // スマホでも重ならないように、イスサイズと半径を動的に計算
+  // イス配置（スマホ対応＋飛び出し防止）
   function initChairs() {
     chairsContainer.innerHTML = '';
     const count = 12;
@@ -799,19 +804,17 @@
     const baseSize = rect.width || 320;
     const size = Math.min(baseSize, rect.height || baseSize);
 
-    // 画面が狭いときはイスを少し小さくする
     const buttonSize = size < 300 ? 52 : 62;
     const buttonHalf = buttonSize / 2;
 
-    // 円の半径：コンテナ半分 − (イス半分 + 余白10px)
-    const radius = size / 2 - (buttonHalf + 10);
+    // 円の半径を少し小さめにして飛び出し防止
+    const radius = size / 2 - (buttonHalf + 20);
 
     for (let seat = 1; seat <= count; seat++) {
       const btn = document.createElement('button');
       btn.className = 'chair';
       btn.dataset.seat = String(seat);
 
-      // イスの大きさを画面サイズに合わせて変更
       btn.style.width = buttonSize + 'px';
       btn.style.height = buttonSize + 'px';
 
@@ -831,7 +834,7 @@
       btn.appendChild(icon);
       btn.appendChild(label);
 
-      // 12が一番上になるように配置
+      // 12が一番上、その後 1,2,... と時計回り
       const posIndex = seat % count; // 12→0, 1→1, 2→2...
       const angle = (2 * Math.PI / count) * posIndex - Math.PI / 2;
 
