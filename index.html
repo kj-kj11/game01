@@ -183,6 +183,8 @@
       position: relative;
       width: 340px;
       height: 340px;
+      max-width: 100%;
+      max-height: 100%;
       border-radius: 50%;
       background:
         radial-gradient(circle at center,#ffffff 0,#ffeaa7 40%,#ffde59 75%);
@@ -207,10 +209,10 @@
       box-shadow: 0 3px 0 #636e72;
     }
 
-    /* 画像イスアイコン（大きめ） */
+    /* イスの中身を大きめに */
     .chair-icon {
-      width: 40px;
-      height: 46px;
+      width: 46px;
+      height: 54px;
       background-image: url("chair_icon.png");
       background-size: contain;
       background-repeat: no-repeat;
@@ -219,7 +221,7 @@
     }
 
     .chair-label {
-      font-size: 16px;
+      font-size: 20px;
       font-weight: 900;
       color: #ff4b5c;
       text-shadow: 0 0 2px rgba(255,255,255,0.8);
@@ -744,7 +746,7 @@
     overlay.classList.add('show');
   }
 
-  // イス配置：円のサイズから「重ならない最大サイズ」を自動計算
+  // イス配置：円のサイズから「重ならない最大サイズ」を計算して、ほぼ最大まで大きく
   function initChairs() {
     chairsContainer.innerHTML = '';
     const count = 12;
@@ -753,17 +755,16 @@
     const baseSize = rect.width || 340;
     const size = Math.min(baseSize, rect.height || baseSize);
 
-    // 角度15度のサイン値（円周上の間隔を計算するため）
-    const sin15 = Math.sin(Math.PI / 12);
-    const margin = 12;
+    const sin15 = Math.sin(Math.PI / 12); // 15度
+    const margin = 8;                     // 円のフチとの余白
 
-    // 理論上、重ならない最大サイズを式で計算して、少しだけ余裕を見て0.95倍
-    let buttonSize =
-      (sin15 * (size - 2 * margin)) / (1 + sin15) * 0.95;
+    // 理論的に重ならない最大サイズ
+    const wMax = sin15 * (size - 2 * margin) / (1 + sin15);
+    // ちょっとだけ余裕を残して 98%
+    let buttonSize = wMax * 0.98;
 
-    // 小さすぎ／大きすぎの上限・下限を設定
-    if (buttonSize > 72) buttonSize = 72;
-    if (buttonSize < 52) buttonSize = 52;
+    // さらに小さすぎるときの保険（超小さい画面用）
+    if (buttonSize < 54) buttonSize = 54;
 
     const buttonHalf = buttonSize / 2;
     const radius = size / 2 - buttonHalf - margin;
