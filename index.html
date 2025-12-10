@@ -181,8 +181,8 @@
     }
     .chair-circle {
       position: relative;
-      width: 320px;
-      height: 320px;
+      width: 340px;
+      height: 340px;
       border-radius: 50%;
       background:
         radial-gradient(circle at center,#ffffff 0,#ffeaa7 40%,#ffde59 75%);
@@ -192,9 +192,9 @@
 
     .chair {
       position: absolute;
-      width: 62px;
-      height: 62px;
-      border-radius: 18px;
+      width: 80px;   /* JSで上書きされるがデフォルト値として大きめ */
+      height: 80px;
+      border-radius: 22px;
       border: 3px solid #000;
       background: #ffffff;
       cursor: pointer;
@@ -207,21 +207,19 @@
       box-shadow: 0 3px 0 #636e72;
     }
 
-    /* ★ ここから：画像イスアイコン ★ */
+    /* 画像イスアイコン（大きめ） */
     .chair-icon {
-      width: 32px;
-      height: 36px;
-      background-image: url("chair_icon.png"); /* 椅子画像ファイルを使用 */
+      width: 44px;
+      height: 50px;
+      background-image: url("chair_icon.png");
       background-size: contain;
       background-repeat: no-repeat;
       background-position: center;
-      margin-bottom: 2px;
+      margin-bottom: 0;
     }
-    /* 足は画像の中に含まれているので、追加の .chair-leg は不要 */
-    /* ★ ここまで：画像イスアイコン ★ */
 
     .chair-label {
-      font-size: 13px;
+      font-size: 16px;
       font-weight: 900;
       color: #ff4b5c;
       text-shadow: 0 0 2px rgba(255,255,255,0.8);
@@ -474,8 +472,8 @@
     @media (max-width: 560px) {
       .card { padding: 14px 12px 18px; }
       .chair-circle {
-        width: 280px;
-        height: 280px;
+        width: 320px;
+        height: 320px;
       }
     }
   </style>
@@ -746,19 +744,21 @@
     overlay.classList.add('show');
   }
 
-  // イス配置（スマホ対応＋飛び出し防止）
+  // イス配置（スマホでも大きく表示）
   function initChairs() {
     chairsContainer.innerHTML = '';
     const count = 12;
 
     const rect = chairsContainer.getBoundingClientRect();
-    const baseSize = rect.width || 320;
+    const baseSize = rect.width || 340;
     const size = Math.min(baseSize, rect.height || baseSize);
 
-    const buttonSize = size < 300 ? 52 : 62;
+    // 画面サイズが小さいほど大きめボタン
+    const buttonSize = size < 330 ? 76 : 84;
     const buttonHalf = buttonSize / 2;
 
-    const radius = size / 2 - (buttonHalf + 20);
+    // 円の中ギリギリまで広げつつ、外にはみ出さない半径
+    const radius = size / 2 - (buttonHalf + 14);
 
     for (let seat = 1; seat <= count; seat++) {
       const btn = document.createElement('button');
@@ -769,7 +769,7 @@
       btn.style.height = buttonSize + 'px';
 
       const icon = document.createElement('div');
-      icon.className = 'chair-icon';   // 画像イス
+      icon.className = 'chair-icon';
 
       const label = document.createElement('div');
       label.className = 'chair-label';
