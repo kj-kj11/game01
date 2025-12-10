@@ -5,7 +5,7 @@
   <title>かじこじゲーム 電気イス</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
 
-  <!-- 少年マンガ／バラエティっぽい日本語フォント -->
+  <!-- フォント -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Rampart+One&family=Yusei+Magic&display=swap" rel="stylesheet">
@@ -76,7 +76,6 @@
       color: #2d3436;
       font-size: 14px;
     }
-
     input[type="text"]:focus,
     input[type="number"]:focus {
       outline: none;
@@ -120,7 +119,6 @@
       margin-bottom: 4px;
       font-weight: 700;
     }
-
     .section-sub {
       font-size: 11px;
       color: #b2bec3;
@@ -140,12 +138,10 @@
       color: #ffffff;
       text-shadow: 0 0 4px rgba(0,0,0,0.5);
     }
-
     .round {
       font-size: 13px;
       font-weight: 900;
     }
-
     .scores {
       display: flex;
       gap: 10px;
@@ -155,9 +151,7 @@
       font-size: 15px;
     }
 
-    .label {
-      font-size: 11px;
-    }
+    .label { font-size: 11px; }
 
     .current-role {
       margin-bottom: 10px;
@@ -169,9 +163,7 @@
       color: #2d3436;
       box-shadow: 0 4px 0 #f1c40f;
     }
-    .current-role strong {
-      color: #e74c3c;
-    }
+    .current-role strong { color: #e74c3c; }
 
     /* イス配置 */
     .chair-area {
@@ -194,7 +186,7 @@
 
     .chair {
       position: absolute;
-      width: 70px;  /* JSで上書き */
+      width: 70px;    /* JS で上書きされます */
       height: 70px;
       border-radius: 22px;
       border: 3px solid #000;
@@ -209,7 +201,6 @@
       box-shadow: 0 3px 0 #636e72;
     }
 
-    /* イスの中身（ボタンが小さくなったので少し調整） */
     .chair-icon {
       width: 40px;
       height: 48px;
@@ -219,7 +210,6 @@
       background-position: center;
       margin-bottom: 0;
     }
-
     .chair-label {
       font-size: 18px;
       font-weight: 900;
@@ -275,13 +265,8 @@
       min-height: 32px;
       margin-bottom: 6px;
     }
-    .info strong {
-      color: #e74c3c;
-    }
-    .highlight {
-      color: #d63031;
-      font-weight: 700;
-    }
+    .info strong { color: #e74c3c; }
+    .highlight { color: #d63031; font-weight: 700; }
 
     .result {
       font-size: 13px;
@@ -297,7 +282,7 @@
       line-height: 1.4;
     }
 
-    /* タイトル画面 */
+    /* タイトル画面など（前回と同じ） */
     .title-screen {
       position: fixed;
       inset: 0;
@@ -358,9 +343,7 @@
       color: #636e72;
       margin-bottom: 14px;
     }
-    .title-btn {
-      margin-top: 4px;
-    }
+    .title-btn { margin-top: 4px; }
 
     .section-logo-img {
       max-width: 220px;
@@ -371,7 +354,6 @@
       image-rendering: crisp-edges;
     }
 
-    /* オーバーレイ */
     .overlay {
       position: fixed;
       inset: 0;
@@ -381,10 +363,7 @@
       z-index: 25;
       padding: 16px;
     }
-    .overlay.show {
-      display: flex;
-    }
-
+    .overlay.show { display: flex; }
     .overlay-inner {
       width: 100%;
       max-width: 360px;
@@ -397,7 +376,6 @@
       border: 4px solid #000;
       background: #fffdf7;
     }
-
     .overlay-title {
       font-size: 22px;
       margin-bottom: 6px;
@@ -408,63 +386,36 @@
         2px 2px 0 #ffeaa7,
         -2px 2px 0 #ffeaa7;
     }
-    .overlay-subtitle {
-      font-size: 14px;
-      font-weight: 600;
-      margin-bottom: 8px;
-    }
-    .overlay-note {
-      font-size: 11px;
-      opacity: 0.9;
-    }
-    .overlay-btn {
-      margin-top: 12px;
-      width: 100%;
-    }
+    .overlay-subtitle { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+    .overlay-note { font-size: 11px; opacity: 0.9; }
+    .overlay-btn { margin-top: 12px; width: 100%; }
 
     .overlay-turn {
       background:
         radial-gradient(circle at center,#ffe36a 0,#ffde59 45%,#ff9f1a 100%);
     }
-    .overlay-turn .overlay-inner {
-      background: #fffdf7;
-    }
+    .overlay-turn .overlay-inner { background:#fffdf7; }
 
     .overlay-safe {
       background:
         radial-gradient(circle at center,#c7f9cc 0,#55efc4 45%,#00b894 100%);
     }
-    .overlay-safe .overlay-inner {
-      background: #ffffff;
-      border-color: #000;
-    }
-    .overlay-safe .overlay-title {
-      color: #00b894;
-    }
+    .overlay-safe .overlay-inner { background:#ffffff; border-color:#000; }
+    .overlay-safe .overlay-title { color:#00b894; }
 
     .overlay-out {
       background:
         radial-gradient(circle at center,#ffb3b3 0,#ff7675 45%,#d63031 100%);
     }
-    .overlay-out .overlay-inner {
-      background: #ffffff;
-      border-color: #000;
-    }
-    .overlay-out .overlay-title {
-      color: #d63031;
-    }
+    .overlay-out .overlay-inner { background:#ffffff; border-color:#000; }
+    .overlay-out .overlay-title { color:#d63031; }
 
     .overlay-win {
       background:
         radial-gradient(circle at center,#ffde59 0,#ff9f1a 45%,#ff4b5c 100%);
     }
-    .overlay-win .overlay-inner {
-      background: #ffffff;
-      border-color: #000;
-    }
-    .overlay-win .overlay-title {
-      color: #ff4b5c;
-    }
+    .overlay-win .overlay-inner { background:#ffffff; border-color:#000; }
+    .overlay-win .overlay-title { color:#ff4b5c; }
 
     @keyframes popIn {
       0% { transform: scale(0.8); opacity: 0; }
@@ -589,7 +540,7 @@
   </div>
 </div>
 
-<!-- BGM（ファイルは自分で用意） -->
+<!-- BGM -->
 <audio id="bgmTension" src="bgm_tension.mp3" loop></audio>
 <audio id="bgmSafe" src="bgm_safe.mp3"></audio>
 <audio id="bgmOut" src="bgm_out.mp3"></audio>
@@ -648,25 +599,12 @@
 
   function stopAllBgm() {
     [bgmTension, bgmSafe, bgmOut].forEach(a => {
-      try {
-        a.pause();
-        a.currentTime = 0;
-      } catch(e) {}
+      try { a.pause(); a.currentTime = 0; } catch(e) {}
     });
   }
-
-  function playTensionBgm() {
-    stopAllBgm();
-    bgmTension.play().catch(() => {});
-  }
-  function playSafeBgm() {
-    stopAllBgm();
-    bgmSafe.play().catch(() => {});
-  }
-  function playOutBgm() {
-    stopAllBgm();
-    bgmOut.play().catch(() => {});
-  }
+  function playTensionBgm() { stopAllBgm(); bgmTension.play().catch(()=>{}); }
+  function playSafeBgm()     { stopAllBgm(); bgmSafe.play().catch(()=>{}); }
+  function playOutBgm()      { stopAllBgm(); bgmOut.play().catch(()=>{}); }
 
   function showOverlayBox(type, main, sub, note, duration = 1500) {
     overlay.className = 'overlay ' + type;
@@ -676,9 +614,7 @@
     overlayRestartBtn.style.display = 'none';
     overlay.classList.add('show');
     if (duration > 0) {
-      setTimeout(() => {
-        overlay.classList.remove('show');
-      }, duration);
+      setTimeout(()=>{ overlay.classList.remove('show'); }, duration);
     }
   }
 
@@ -691,13 +627,7 @@
       role === 'attack'
         ? 'スマホを攻撃側の人だけが見てください。'
         : 'スマホを防御側の人だけが見てください。';
-    showOverlayBox(
-      'overlay-turn',
-      `${playerName} のターン！`,
-      sub,
-      note,
-      1500
-    );
+    showOverlayBox('overlay-turn', `${playerName} のターン！`, sub, note, 1500);
   }
 
   function showResultOverlay(hit) {
@@ -736,7 +666,6 @@
     } else {
       reasonText = 'ポイント勝負の結果、より高得点のプレイヤーが勝利！';
     }
-
     stopAllBgm();
     overlay.className = 'overlay overlay-win';
     overlayTitle.textContent = `${winnerName} の勝利！`;
@@ -746,26 +675,27 @@
     overlay.classList.add('show');
   }
 
-  // ★イス配置：円のサイズから「重ならない最大サイズ」を出し、その 85% まで小さくして間隔を作る
+  // ★イスの配置ロジック：画面いっぱいまで大きくしつつ、重なりを最小限に抑える
   function initChairs() {
     chairsContainer.innerHTML = '';
     const count = 12;
 
     const rect = chairsContainer.getBoundingClientRect();
-    const baseSize = rect.width || 340;
-    const size = Math.min(baseSize, rect.height || baseSize);
+    let size = rect.width || 340;
+    if (rect.height) size = Math.min(size, rect.height);
 
-    const sin15 = Math.sin(Math.PI / 12); // 15°
     const margin = 8;
+    const sin15 = Math.sin(Math.PI / 12);
 
-    // 重ならない理論上の最大サイズ
+    // 理論上「ちょうど重ならない」ボタン幅
     const wMax = sin15 * (size - 2 * margin) / (1 + sin15);
 
-    // その 85% にして、イス同士の間に少し余白をつくる
-    let buttonSize = wMax * 0.85;
+    // 見やすさ優先で 1.02 倍 → ほんの少しだけ重なるが、そのぶん大きく表示
+    let buttonSize = wMax * 1.02;
 
-    // 画面が小さすぎる場合の下限
-    if (buttonSize < 50) buttonSize = 50;
+    // 安全な範囲にクランプ
+    if (buttonSize < 56) buttonSize = 56;
+    if (buttonSize > 72) buttonSize = 72;
 
     const buttonHalf = buttonSize / 2;
     const radius = size / 2 - buttonHalf - margin;
@@ -775,7 +705,7 @@
       btn.className = 'chair';
       btn.dataset.seat = String(seat);
 
-      btn.style.width = buttonSize + 'px';
+      btn.style.width  = buttonSize + 'px';
       btn.style.height = buttonSize + 'px';
 
       const icon = document.createElement('div');
@@ -788,8 +718,8 @@
       btn.appendChild(icon);
       btn.appendChild(label);
 
-      // 12が一番上、その後 1,2,... と時計回り
-      const posIndex = seat % count; // 12→0, 1→1, 2→2...
+      // 12 が一番上 → 1,2,... と時計回り
+      const posIndex = seat % count; // 12→0, 1→1, 2→2…
       const angle = (2 * Math.PI / count) * posIndex - Math.PI / 2;
 
       const x = size / 2 + radius * Math.cos(angle);
@@ -860,13 +790,9 @@
       }
 
       if (state.phase === 'attack') {
-        if (state.electricSeat === n) {
-          btn.classList.add('selected-attack');
-        }
+        if (state.electricSeat === n) btn.classList.add('selected-attack');
       } else if (state.phase === 'defend') {
-        if (state.defendSeat === n) {
-          btn.classList.add('selected-defend');
-        }
+        if (state.defendSeat === n) btn.classList.add('selected-defend');
       } else if (state.phase === 'reveal') {
         btn.disabled = true;
         const isElectric = state.electricSeat === n;
@@ -944,14 +870,12 @@
       if (state.winnerIndex != null) {
         const w = state.winnerIndex;
         msg = `勝者：<strong>${state.names[w]}</strong>！（${s1}点 vs ${s2}点）`;
+      } else if (s1 > s2) {
+        msg = `勝者：<strong>${state.names[0]}</strong>！（${s1}点 vs ${s2}点）`;
+      } else if (s2 > s1) {
+        msg = `勝者：<strong>${state.names[1]}</strong>！（${s1}点 vs ${s2}点）`;
       } else {
-        if (s1 > s2) {
-          msg = `勝者：<strong>${state.names[0]}</strong>！（${s1}点 vs ${s2}点）`;
-        } else if (s2 > s1) {
-          msg = `勝者：<strong>${state.names[1]}</strong>！（${s1}点 vs ${s2}点）`;
-        } else {
-          msg = `引き分け！ 両者とも <strong>${s1}点</strong> でした。`;
-        }
+        msg = `引き分け！ 両者とも <strong>${s1}点</strong> でした。`;
       }
       resultText.innerHTML = msg;
       infoText.textContent = 'おつかれさまでした。もう一度遊ぶ場合は「最初からやり直す」を押してください。';
@@ -1004,11 +928,9 @@
     let rounds = parseInt(roundCountInput.value, 10);
     let outs = parseInt(maxOutsInput.value, 10);
     let winScore = parseInt(winScoreInput.value, 10);
-
     if (isNaN(rounds)) rounds = 10;
     if (isNaN(outs)) outs = 3;
     if (isNaN(winScore)) winScore = 40;
-
     rounds = Math.min(Math.max(rounds, 1), 20);
     outs = Math.min(Math.max(outs, 1), 10);
     winScore = Math.min(Math.max(winScore, 1), 200);
@@ -1056,10 +978,9 @@
         state.scores[def] += state.defendSeat;
         if (!state.usedSeats.includes(state.defendSeat)) {
           state.usedSeats.push(state.defendSeat);
-          state.usedSeats.sort((a,b) => a - b);
+          state.usedSeats.sort((a,b)=>a-b);
         }
       }
-
       checkWinCondition();
       state.phase = 'reveal';
       stopAllBgm();
@@ -1072,7 +993,7 @@
         showWinOverlay();
       } else {
         state.round += 1;
-        state.attacker = (state.attacker === 0) ? 1 : 0;
+        state.attacker = state.attacker === 0 ? 1 : 0;
         state.defender = 1 - state.attacker;
         state.electricSeat = null;
         state.defendSeat = null;
@@ -1102,6 +1023,7 @@
     });
   });
 
+  // 初期化（レイアウト計算用）
   initChairs();
 </script>
 </body>
