@@ -192,8 +192,8 @@
 
     .chair {
       position: absolute;
-      width: 80px;   /* JSで上書きされるがデフォルト値として大きめ */
-      height: 80px;
+      width: 70px;  /* 実際のサイズはJSで上書き */
+      height: 70px;
       border-radius: 22px;
       border: 3px solid #000;
       background: #ffffff;
@@ -209,8 +209,8 @@
 
     /* 画像イスアイコン（大きめ） */
     .chair-icon {
-      width: 44px;
-      height: 50px;
+      width: 40px;
+      height: 46px;
       background-image: url("chair_icon.png");
       background-size: contain;
       background-repeat: no-repeat;
@@ -744,7 +744,7 @@
     overlay.classList.add('show');
   }
 
-  // イス配置（スマホでも大きく表示）
+  // イス配置：円のサイズから「重ならない最大サイズ」を自動計算
   function initChairs() {
     chairsContainer.innerHTML = '';
     const count = 12;
@@ -753,12 +753,20 @@
     const baseSize = rect.width || 340;
     const size = Math.min(baseSize, rect.height || baseSize);
 
-    // 画面サイズが小さいほど大きめボタン
-    const buttonSize = size < 330 ? 76 : 84;
-    const buttonHalf = buttonSize / 2;
+    // 角度15度のサイン値（円周上の間隔を計算するため）
+    const sin15 = Math.sin(Math.PI / 12);
+    const margin = 12;
 
-    // 円の中ギリギリまで広げつつ、外にはみ出さない半径
-    const radius = size / 2 - (buttonHalf + 14);
+    // 理論上、重ならない最大サイズを式で計算して、少しだけ余裕を見て0.95倍
+    let buttonSize =
+      (sin15 * (size - 2 * margin)) / (1 + sin15) * 0.95;
+
+    // 小さすぎ／大きすぎの上限・下限を設定
+    if (buttonSize > 72) buttonSize = 72;
+    if (buttonSize < 52) buttonSize = 52;
+
+    const buttonHalf = buttonSize / 2;
+    const radius = size / 2 - buttonHalf - margin;
 
     for (let seat = 1; seat <= count; seat++) {
       const btn = document.createElement('button');
